@@ -1,0 +1,24 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Isadora Muylaert",
+    "theme_version": "1.0.0",
+    "theme_author": "Francesco Strelow",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/"
+  },
+  {
+    "name": "Cores",
+    "settings": [
+      { "type": "color", "id": "color_header", "label": "Cabeçalho", "default": "#751C4A" },
+      { "type": "color", "id": "color_footer", "label": "Rodapé", "default": "#02B08F" },
+      { "type": "color", "id": "color_buy", "label": "Botão Comprar e links", "default": "#9D4273" }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      { "type": "image_picker", "id": "favicon", "label": "Ícone da aba" }
+    ]
+  }
+]

@@ -1,0 +1,51 @@
+{%- liquid
+  assign menu = linklists[section.settings.menu]
+  assign current_collections = ''
+  if template.name == 'product'
+    for c in product.collections
+      assign current_collections = current_collections | append: '|' | append: c.handle | append: '|'
+    endfor
+  endif
+-%}
+<header class="site-header{% if template.name == 'index' %} is-tall{% endif %}">
+  <a class="wordmark" href="{{ routes.root_url }}">{{ section.settings.logo_text | default: shop.name }}</a>
+
+  <nav class="nav" aria-label="Principal">
+    {%- if menu.links.size > 0 -%}
+      {%- for link in menu.links -%}
+        {%- liquid
+          assign is_current = false
+          if link.current or link.active
+            assign is_current = true
+          endif
+          if link.type == 'collection_link'
+            assign key = '|' | append: link.object.handle | append: '|'
+            if current_collections contains key
+              assign is_current = true
+            endif
+          endif
+        -%}
+        <a href="{{ link.url }}"{% if is_current %} aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="{{ routes.collections_url }}/originais">Originais</a>
+      <a href="{{ routes.collections_url }}/prints">Prints</a>
+      <a href="{{ routes.root_url | append: 'pages/sobre' | replace: '//', '/' }}">Sobre mim</a>
+    {%- endif -%}
+    <a class="bag" href="{{ routes.cart_url }}" aria-label="Sacola de compras ({{ cart.item_count }})">
+      {%- render 'icon-bag' -%}
+      {%- if cart.item_count > 0 -%}<span class="bag-count" aria-hidden="true">{{ cart.item_count }}</span>{%- endif -%}
+    </a>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Cabeçalho",
+  "class": "header-section",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Nome no cabeçalho", "info": "Vazio usa o nome da loja." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

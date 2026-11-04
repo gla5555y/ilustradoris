@@ -1,0 +1,11 @@
+<section class="simple">
+  <h1>{{ blog.title }}</h1>
+  {%- paginate blog.articles by 12 -%}
+    {%- for article in blog.articles -%}
+      <p style="margin-bottom:16px"><a class="text-link" href="{{ article.url }}">{{ article.title }}</a></p>
+    {%- endfor -%}
+  {%- endpaginate -%}
+</section>
+{% schema %}
+{ "name": "Blog", "settings": [] }
+{% endschema %}

@@ -1,0 +1,12 @@
+{%- assign media = product.featured_media -%}
+<a class="print-card" href="{{ product.url | within: collection }}" aria-label="{{ product.title | escape }}">
+  {%- if media -%}
+    {{ media | image_url: width: 1400 | image_tag:
+      loading: 'lazy',
+      alt: product.title,
+      widths: '400, 700, 1000, 1400',
+      sizes: '(max-width: 760px) 100vw, 50vw' }}
+  {%- else -%}
+    <span style="display:block;aspect-ratio:4/5;background:#f2f2f2"></span>
+  {%- endif -%}
+</a>

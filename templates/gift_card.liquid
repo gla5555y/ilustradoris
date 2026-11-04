@@ -1,0 +1,27 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vale-presente — {{ shop.name }}</title>
+  <style>
+    @font-face { font-family: "Jura"; font-weight: 300; font-display: swap; src: url("{{ 'jura-300.woff2' | asset_url }}") format("woff2"); }
+    @font-face { font-family: "Jura"; font-weight: 400; font-display: swap; src: url("{{ 'jura-400.woff2' | asset_url }}") format("woff2"); }
+    @font-face { font-family: "Jura"; font-weight: 500; font-display: swap; src: url("{{ 'jura-500.woff2' | asset_url }}") format("woff2"); }
+  </style>
+  {{ 'jura-400.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+  <style>:root { --header: {{ settings.color_header }}; --footer: {{ settings.color_footer }}; --buy: {{ settings.color_buy }}; --on-color: #fff; }</style>
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  {{ content_for_header }}
+</head>
+<body>
+  <section class="simple">
+    <h1>{{ shop.name }}</h1>
+    <p class="rte">Vale-presente de {{ gift_card.initial_value | money }}</p>
+    <p class="rte" style="margin-top:16px">Código: <strong>{{ gift_card.code | format_code }}</strong></p>
+    {%- if gift_card.expired or gift_card.enabled == false -%}<p class="rte">Este vale-presente não está mais ativo.</p>{%- endif -%}
+    <p style="margin-top:24px"><a class="text-link" href="{{ shop.url }}">Ir para a loja</a></p>
+  </section>
+</body>
+</html>

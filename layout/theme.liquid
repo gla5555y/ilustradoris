@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64 }}">
+  {%- endif -%}
+  <title>
+    {%- if template.name == 'index' -%}{{ shop.name }}{%- else -%}{{ page_title }} — {{ shop.name }}{%- endif -%}
+  </title>
+  {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+
+  <style>
+    @font-face { font-family: "Jura"; font-weight: 300; font-display: swap; src: url("{{ 'jura-300.woff2' | asset_url }}") format("woff2"); }
+    @font-face { font-family: "Jura"; font-weight: 400; font-display: swap; src: url("{{ 'jura-400.woff2' | asset_url }}") format("woff2"); }
+    @font-face { font-family: "Jura"; font-weight: 500; font-display: swap; src: url("{{ 'jura-500.woff2' | asset_url }}") format("woff2"); }
+  </style>
+  {{ 'jura-400.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: true }}
+
+  <style>
+    :root {
+      --header: {{ settings.color_header }};
+      --footer: {{ settings.color_footer }};
+      --buy: {{ settings.color_buy }};
+      --on-color: #ffffff;
+    }
+  </style>
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+  {{ content_for_header }}
+</head>
+<body class="template-{{ template.name }}">
+
+  {%- if template.name == 'index' -%}
+    {%- render 'loader' -%}
+  {%- endif -%}
+
+  {% section 'header' %}
+
+  <main id="MainContent" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+</body>
+</html>

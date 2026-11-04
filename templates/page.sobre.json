@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "about": { "type": "about", "settings": {} },
+    "shop": { "type": "shop-split", "settings": {} },
+    "banner": { "type": "image-banner", "settings": { "default_image": "mesa", "position": "center center" } }
+  },
+  "order": ["about", "shop", "banner"]
+}

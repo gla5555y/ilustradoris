@@ -1,0 +1,17 @@
+<section class="shop-split" aria-label="Loja">
+  <a href="{{ section.settings.left_link | default: '/collections/originais' }}"><span>{{ section.settings.left_label }}</span></a>
+  <a href="{{ section.settings.right_link | default: '/collections/prints' }}"><span>{{ section.settings.right_label }}</span></a>
+</section>
+
+{% schema %}
+{
+  "name": "Shop originais / prints",
+  "settings": [
+    { "type": "text", "id": "left_label", "label": "Texto da esquerda", "default": "Shop originais" },
+    { "type": "url", "id": "left_link", "label": "Link da esquerda" },
+    { "type": "text", "id": "right_label", "label": "Texto da direita", "default": "Shop prints" },
+    { "type": "url", "id": "right_link", "label": "Link da direita" }
+  ],
+  "presets": [ { "name": "Shop originais / prints" } ]
+}
+{% endschema %}

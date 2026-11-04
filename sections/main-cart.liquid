@@ -1,0 +1,52 @@
+<section class="simple">
+  <h1>{{ section.settings.title }}</h1>
+  {%- if cart.item_count == 0 -%}
+    <p class="rte">{{ section.settings.empty_text }}</p>
+    <p style="margin-top:24px"><a class="text-link" href="{{ routes.collections_url }}/prints">Shop prints</a> &nbsp; <a class="text-link" href="{{ routes.collections_url }}/originais">Shop originais</a></p>
+  {%- else -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      <ul class="cart-items">
+        {%- for item in cart.items -%}
+          <li class="cart-item">
+            <a href="{{ item.url }}">
+              {%- if item.image -%}{{ item.image | image_url: width: 240 | image_tag: loading: 'lazy', alt: item.product.title }}{%- endif -%}
+            </a>
+            <div>
+              <a class="cart-item-title" href="{{ item.url }}">{{ item.product.title }}</a>
+              {%- unless item.product.has_only_default_variant -%}
+                <p class="cart-item-meta">{{ item.variant.title }}</p>
+              {%- endunless -%}
+              <label class="cart-qty">
+                <span>Qtd.</span>
+                <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" aria-label="Quantidade de {{ item.product.title | escape }}">
+              </label>
+            </div>
+            <div class="cart-item-side">
+              {{ item.final_line_price | money }}
+              <a class="cart-remove" href="{{ item.url_to_remove }}">Remover</a>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="cart-footer">
+        <span>Subtotal &nbsp; {{ cart.total_price | money }}</span>
+        <div class="cart-actions">
+          <button type="submit" name="update" class="btn-quiet">Atualizar</button>
+          <button type="submit" name="checkout" class="btn-line">Finalizar compra</button>
+        </div>
+      </div>
+      <p class="cart-item-meta" style="margin-top:12px">{{ section.settings.note }}</p>
+    </form>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Sacola",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Sacola" },
+    { "type": "text", "id": "empty_text", "label": "Sacola vazia", "default": "Sua sacola está vazia." },
+    { "type": "text", "id": "note", "label": "Nota", "default": "Frete calculado no checkout." }
+  ]
+}
+{% endschema %}

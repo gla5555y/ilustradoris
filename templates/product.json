@@ -1,0 +1,8 @@
+{
+  "sections": {
+    "main": { "type": "main-product", "settings": {} },
+    "banner": { "type": "image-banner", "settings": { "default_image": "mesa", "position": "center center" } },
+    "shop": { "type": "shop-split", "settings": {} }
+  },
+  "order": ["main", "banner", "shop"]
+}

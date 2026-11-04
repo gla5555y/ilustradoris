@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "hero": { "type": "image-banner", "settings": { "default_image": "banheiro", "position": "center 30%" } },
+    "shop": { "type": "shop-split", "settings": {} }
+  },
+  "order": ["hero", "shop"]
+}

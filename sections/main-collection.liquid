@@ -1,0 +1,33 @@
+<h1 class="visually-hidden">{{ collection.title }}</h1>
+{%- paginate collection.products by 48 -%}
+  <section class="gallery" aria-label="{{ collection.title | escape }}">
+    {%- if collection.products.size == 0 -%}
+      <p class="gallery-empty">Nenhuma obra nesta coleção ainda.</p>
+    {%- else -%}
+      {%- comment -%} Odd products fill the left column, even ones the right, so the order reads left to right. {%- endcomment -%}
+      <div class="gallery-col">
+        {%- for product in collection.products -%}
+          {%- assign half = forloop.index0 | modulo: 2 -%}
+          {%- if half == 0 -%}
+            {%- render 'gallery-card', product: product, collection: collection -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      <div class="gallery-col">
+        {%- for product in collection.products -%}
+          {%- assign half = forloop.index0 | modulo: 2 -%}
+          {%- if half == 1 -%}
+            {%- render 'gallery-card', product: product, collection: collection -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Galeria da coleção",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,30 @@
+<section class="about" style="--about-left: {{ section.settings.color_left }}; --about-right: {{ section.settings.color_right }};">
+  <div class="about-photo" style="background: var(--about-left);">
+    {%- if section.settings.image != blank -%}
+      {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'eager', alt: section.settings.image.alt, sizes: '(max-width: 760px) 100vw, 50vw' }}
+    {%- else -%}
+      <img src="{{ 'sobre-isadora.jpg' | asset_url }}" alt="Isadora Muylaert sorrindo, de vestido rosa, diante de uma ilustração dela mesma" width="1170" height="1463">
+    {%- endif -%}
+  </div>
+  <div class="about-text" style="background: var(--about-right);">
+    <h1>{{ section.settings.title }}</h1>
+    <div class="rte">{{ section.settings.text }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sobre mim",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Foto" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Isadora Muylaert" },
+    {
+      "type": "richtext", "id": "text", "label": "Texto",
+      "default": "<p>Ilustradora, aquarelista e psicóloga, 24 anos. Me encontrei com a aquarela em 2020 e desde então tenho feito do trabalho com ela um lugar dedicado à busca do lúdico e do brincar. Misturo em minhas ilustrações um pouco do infantil com o ser-adulto, porque acredito que tudo isso fica junto e misturado dentro da gente. Além disso, produzo trabalhos voltados para o universo feminino, explorando a sensibilidade das cenas cotidianas. Procuro sempre brincar com o colorido e o vibrante, deixando a criatividade fluir.</p>"
+    },
+    { "type": "color", "id": "color_left", "label": "Fundo da foto", "default": "#ED96A7" },
+    { "type": "color", "id": "color_right", "label": "Fundo do texto", "default": "#E07B8B" }
+  ],
+  "presets": [ { "name": "Sobre mim" } ]
+}
+{% endschema %}

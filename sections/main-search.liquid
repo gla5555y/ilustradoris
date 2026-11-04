@@ -1,0 +1,29 @@
+<section class="simple">
+  <h1>Busca</h1>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Buscar obras" aria-label="Buscar">
+    <input type="hidden" name="type" value="product">
+    <button type="submit" class="btn-line">Buscar</button>
+  </form>
+</section>
+{%- if search.performed and search.results_count > 0 -%}
+  <section class="gallery" aria-label="Resultados">
+    <div class="gallery-col">
+      {%- for item in search.results -%}
+        {%- assign half = forloop.index0 | modulo: 2 -%}
+        {%- if half == 0 and item.object_type == 'product' -%}{%- render 'gallery-card', product: item, collection: nil -%}{%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="gallery-col">
+      {%- for item in search.results -%}
+        {%- assign half = forloop.index0 | modulo: 2 -%}
+        {%- if half == 1 and item.object_type == 'product' -%}{%- render 'gallery-card', product: item, collection: nil -%}{%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+{%- elsif search.performed -%}
+  <section class="simple"><p class="rte">Nada encontrado para “{{ search.terms | escape }}”.</p></section>
+{%- endif -%}
+{% schema %}
+{ "name": "Busca", "settings": [] }
+{% endschema %}

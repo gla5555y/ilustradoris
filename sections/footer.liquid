@@ -1,0 +1,25 @@
+{%- assign menu = linklists[section.settings.menu] -%}
+<footer class="site-footer">
+  <a class="footer-wordmark" href="{{ routes.root_url }}">{{ section.settings.logo_text | default: shop.name }}</a>
+  <nav class="footer-nav" aria-label="Rodapé">
+    {%- if menu.links.size > 0 -%}
+      {%- for link in menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    {%- else -%}
+      <a href="{{ routes.root_url | append: 'pages/sobre' | replace: '//', '/' }}">Sobre mim</a>
+      <a href="{{ routes.collections_url }}/prints">Prints</a>
+      <a href="{{ routes.collections_url }}/originais">Originais</a>
+    {%- endif -%}
+  </nav>
+</footer>
+
+{% schema %}
+{
+  "name": "Rodapé",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Nome no rodapé", "info": "Vazio usa o nome da loja." },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" }
+  ]
+}
+{% endschema %}

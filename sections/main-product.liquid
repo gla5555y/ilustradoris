@@ -1,0 +1,114 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign media = product.featured_media
+  if product.type != blank
+    assign subline = product.type
+  else
+    assign subline = section.settings.subline_fallback
+  endif
+-%}
+<div class="pdp-page" data-product>
+  <script>
+    /* Play the entrance only when arriving from inside the store */
+    (function () {
+      try {
+        var r = document.currentScript.parentElement;
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reduce && document.referrer && new URL(document.referrer).host === location.host) r.classList.add('pdp-enter');
+      } catch (e) {}
+    })();
+  </script>
+  <article class="pdp">
+    <div class="pdp-main">
+      <div class="pdp-image">
+        {%- if media -%}
+          {{ media | image_url: width: 1800 | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            alt: product.title,
+            widths: '600, 900, 1200, 1500, 1800',
+            sizes: '(max-width: 760px) 100vw, 52vw' }}
+        {%- endif -%}
+      </div>
+
+      {%- form 'product', product, class: 'pdp-form', novalidate: 'novalidate' -%}
+        <input type="hidden" name="id" value="{{ current_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        {%- if section.settings.buy_goes_to_checkout -%}
+          <input type="hidden" name="return_to" value="{{ routes.root_url | append: 'checkout' | replace: '//', '/' }}">
+        {%- endif -%}
+        <div class="pdp-info">
+          <h1 class="pdp-title">{{ product.title }}</h1>
+          <p class="pdp-price">{{ current_variant.price | money }}</p>
+          <p class="pdp-sub">{{ subline }}</p>
+          <button type="submit" class="pdp-buy" data-buy="{{ section.settings.buy_label }}" data-soldout="{{ section.settings.soldout_label }}"{% unless current_variant.available %} disabled{% endunless %}>
+            {%- if current_variant.available -%}{{ section.settings.buy_label }}{%- else -%}{{ section.settings.soldout_label }}{%- endif -%}
+          </button>
+
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="pdp-variants" role="radiogroup" aria-label="{{ option.name | escape }}">
+                <span class="pdp-variants-label">{{ option.name }}</span>
+                <div class="pdp-variant-list">
+                  {%- for value in option.values -%}
+                    {%- assign is_on = false -%}
+                    {%- if option.selected_value == value -%}{%- assign is_on = true -%}{%- endif -%}
+                    <button type="button" class="pdp-variant" role="radio" data-value="{{ value | escape }}"
+                      aria-checked="{{ is_on }}" tabindex="{% if is_on %}0{% else %}-1{% endif %}">{{ value }}</button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+        </div>
+      {%- endform -%}
+    </div>
+
+    <div class="pdp-accordion">
+      {%- if product.description != blank -%}
+        <details name="pdp-acc">
+          <summary>{{ section.settings.details_title }} <span class="icon" aria-hidden="true"></span></summary>
+          <div class="acc-body rte">{{ product.description }}</div>
+        </details>
+      {%- endif -%}
+      {%- if section.settings.artist_text != blank -%}
+        <details name="pdp-acc">
+          <summary>{{ section.settings.artist_title }} <span class="icon" aria-hidden="true"></span></summary>
+          <div class="acc-body rte">{{ section.settings.artist_text }}</div>
+        </details>
+      {%- endif -%}
+      {%- if section.settings.shipping_text != blank -%}
+        <details name="pdp-acc">
+          <summary>{{ section.settings.shipping_title }} <span class="icon" aria-hidden="true"></span></summary>
+          <div class="acc-body rte">{{ section.settings.shipping_text }}</div>
+        </details>
+      {%- endif -%}
+    </div>
+  </article>
+
+  <script type="application/json" data-variants>
+    [{%- for v in product.variants -%}{"id": {{ v.id }}, "options": {{ v.options | json }}, "price": {{ v.price | money | json }}, "available": {{ v.available | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
+  </script>
+</div>
+
+{% schema %}
+{
+  "name": "Página de produto",
+  "settings": [
+    { "type": "text", "id": "subline_fallback", "label": "Linha abaixo do título (se o produto não tiver tipo)", "default": "Obra original", "info": "Por padrão a linha mostra o Tipo do produto, por exemplo Print ou Obra original." },
+    { "type": "text", "id": "buy_label", "label": "Texto do botão", "default": "Comprar" },
+    { "type": "text", "id": "soldout_label", "label": "Texto quando esgotado", "default": "Esgotado" },
+    { "type": "checkbox", "id": "buy_goes_to_checkout", "label": "Comprar leva direto ao checkout", "default": true, "info": "Desligado, o produto vai para a sacola." },
+    { "type": "header", "content": "Gavetas" },
+    { "type": "paragraph", "content": "Detalhes mostra a descrição de cada produto. Gavetas sem texto não aparecem." },
+    { "type": "text", "id": "details_title", "label": "Título: detalhes", "default": "Detalhes" },
+    { "type": "text", "id": "artist_title", "label": "Título: artista", "default": "A Artista" },
+    {
+      "type": "richtext", "id": "artist_text", "label": "Texto: artista",
+      "default": "<p>Ilustradora, aquarelista e psicóloga, 24 anos. Me encontrei com a aquarela em 2020 e desde então tenho feito do trabalho com ela um lugar dedicado à busca do lúdico e do brincar. Misturo em minhas ilustrações um pouco do infantil com o ser-adulto, porque acredito que tudo isso fica junto e misturado dentro da gente.</p>"
+    },
+    { "type": "text", "id": "shipping_title", "label": "Título: frete", "default": "Informações sobre o frete" },
+    { "type": "richtext", "id": "shipping_text", "label": "Texto: frete" }
+  ]
+}
+{% endschema %}

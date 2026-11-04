@@ -1,0 +1,36 @@
+{%- liquid
+  if section.settings.image != blank
+    assign banner_url = section.settings.image | image_url: width: 2400
+  elsif section.settings.default_image == 'banheiro'
+    assign banner_url = 'banner-banheiro.jpg' | asset_url
+  else
+    assign banner_url = 'banner-mesa.jpg' | asset_url
+  endif
+-%}
+<div class="stripe" role="img" aria-label="{{ section.settings.alt | default: 'Pintura de Isadora Muylaert' | escape }}"
+     style="background-image: url('{{ banner_url }}'); background-position: {{ section.settings.position }};"></div>
+
+{% schema %}
+{
+  "name": "Faixa com pintura",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Pintura" },
+    {
+      "type": "select", "id": "default_image", "label": "Pintura padrão (se nenhuma for escolhida)", "default": "mesa",
+      "options": [ { "value": "banheiro", "label": "Banheiro" }, { "value": "mesa", "label": "Mesa" } ]
+    },
+    {
+      "type": "select", "id": "position", "label": "Enquadramento", "default": "center center",
+      "options": [
+        { "value": "center top", "label": "Topo" },
+        { "value": "center 30%", "label": "Acima do centro" },
+        { "value": "center center", "label": "Centro" },
+        { "value": "center 70%", "label": "Abaixo do centro" },
+        { "value": "center bottom", "label": "Base" }
+      ]
+    },
+    { "type": "text", "id": "alt", "label": "Descrição da imagem", "default": "Pintura de Isadora Muylaert" }
+  ],
+  "presets": [ { "name": "Faixa com pintura" } ]
+}
+{% endschema %}
