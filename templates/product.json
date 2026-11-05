@@ -1,8 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "main": { "type": "main-product", "settings": {} },
-    "banner": { "type": "image-banner", "settings": { "default_image": "mesa", "position": "center center" } },
-    "shop": { "type": "shop-split", "settings": {} }
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "subline_fallback": "Obra original",
+        "buy_label": "Comprar",
+        "soldout_label": "Esgotado",
+        "buy_goes_to_checkout": false,
+        "details_title": "Detalhes",
+        "artist_title": "A Artista",
+        "artist_text": "<p>Ilustradora, aquarelista e psicóloga, 24 anos. Me encontrei com a aquarela em 2020 e desde então tenho feito do trabalho com ela um lugar dedicado à busca do lúdico e do brincar. Misturo em minhas ilustrações um pouco do infantil com o ser-adulto, porque acredito que tudo isso fica junto e misturado dentro da gente.</p>",
+        "shipping_title": "Informações sobre o frete",
+        "shipping_text": ""
+      }
+    },
+    "banner": {
+      "type": "image-banner",
+      "settings": {
+        "default_image": "mesa",
+        "position": "center center",
+        "alt": "Pintura de Isadora Muylaert"
+      }
+    },
+    "shop": {
+      "type": "shop-split",
+      "settings": {
+        "left_label": "Shop originais",
+        "left_link": "",
+        "right_label": "Shop prints",
+        "right_link": ""
+      }
+    }
   },
-  "order": ["main", "banner", "shop"]
+  "order": [
+    "main",
+    "banner",
+    "shop"
+  ]
 }
