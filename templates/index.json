@@ -1,7 +1,34 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hero": { "type": "image-banner", "settings": { "default_image": "banheiro", "position": "center 30%" } },
-    "shop": { "type": "shop-split", "settings": {} }
+    "hero": {
+      "type": "image-banner",
+      "settings": {
+        "default_image": "banheiro",
+        "position": "center 30%",
+        "alt": "Pintura de Isadora Muylaert"
+      }
+    },
+    "shop": {
+      "type": "shop-split",
+      "settings": {
+        "left_label": "Shop originais",
+        "left_link": "shopify://collections/originais",
+        "right_label": "Shop prints",
+        "right_link": "shopify://collections/prints"
+      }
+    }
   },
-  "order": ["hero", "shop"]
+  "order": [
+    "hero",
+    "shop"
+  ]
 }
