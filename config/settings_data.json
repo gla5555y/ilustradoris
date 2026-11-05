@@ -1,7 +1,33 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_header": "#751C4A",
     "color_footer": "#02B08F",
-    "color_buy": "#9D4273"
+    "color_buy": "#9D4273",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo_text": "ISADORA MUYLAERT",
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "logo_text": "ISADORA MUYLAERT",
+          "menu": "main-menu"
+        }
+      }
+    },
+    "content_for_index": []
   }
 }
