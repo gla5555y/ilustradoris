@@ -17,13 +17,13 @@
         {%- if phone != blank -%}
           {%- assign phone_digits = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '+' -%}
           {%- if phone_digits.size <= 11 -%}{%- assign phone_digits = '55' | append: phone_digits -%}{%- endif -%}
-          <li>Celular: <a href="tel:+{{ phone_digits }}">{{ phone }}</a></li>
+          <li>{% render 'icon-contact', icon: 'phone' %}<span class="visually-hidden">Celular:</span> <a href="tel:+{{ phone_digits }}">{{ phone }}</a></li>
         {%- endif -%}
         {%- if email != blank -%}
-          <li>Email: <a href="mailto:{{ email }}">{{ email }}</a></li>
+          <li>{% render 'icon-contact', icon: 'email' %}<span class="visually-hidden">Email:</span> <a href="mailto:{{ email }}">{{ email }}</a></li>
         {%- endif -%}
         {%- if instagram != blank -%}
-          <li><a href="https://www.instagram.com/{{ instagram }}/" target="_blank" rel="noopener">@{{ instagram }}</a></li>
+          <li>{% render 'icon-contact', icon: 'instagram' %}<span class="visually-hidden">Instagram:</span> <a href="https://www.instagram.com/{{ instagram }}/" target="_blank" rel="noopener">@{{ instagram }}</a></li>
         {%- endif -%}
       </ul>
     {%- endif -%}

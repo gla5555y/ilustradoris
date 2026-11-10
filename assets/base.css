@@ -108,6 +108,9 @@ a { color: inherit; }
 .about-text h1 { font-weight: 300; font-size: clamp(26px, calc(2.2 * var(--vw)), 44px); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.1; margin-bottom: clamp(28px, calc(3.1 * var(--vw)), 60px); }
 .about-text .rte { font-size: clamp(15px, calc(1.1 * var(--vw)), 20px); letter-spacing: 0.05em; line-height: 1.25; max-width: 44ch; }
 .about-contact { list-style: none; margin: 1.5em 0 0; padding: 0; font-size: clamp(15px, calc(1.1 * var(--vw)), 20px); letter-spacing: 0.05em; line-height: 1.4; }
+.about-contact li { display: flex; align-items: center; gap: 0.6em; }
+.about-contact li + li { margin-top: 0.35em; }
+.about-contact .icon-contact { flex: none; width: 1.1em; height: 1.1em; }
 .about-contact a { text-decoration: none; border-bottom: 1px solid transparent; transition: border-color .2s ease; }
 .about-contact a:hover, .about-contact a:focus-visible { border-bottom-color: currentColor; }
 .rte p + p { margin-top: 1em; }
