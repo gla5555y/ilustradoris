@@ -9,6 +9,24 @@
   <div class="about-text" style="background: var(--about-right);">
     <h1>{{ section.settings.title }}</h1>
     <div class="rte">{{ section.settings.text }}</div>
+    {%- assign phone = section.settings.phone | strip -%}
+    {%- assign email = section.settings.email | strip -%}
+    {%- assign instagram = section.settings.instagram | strip | remove: '@' -%}
+    {%- if phone != blank or email != blank or instagram != blank -%}
+      <ul class="about-contact">
+        {%- if phone != blank -%}
+          {%- assign phone_digits = phone | remove: ' ' | remove: '(' | remove: ')' | remove: '-' | remove: '+' -%}
+          {%- if phone_digits.size <= 11 -%}{%- assign phone_digits = '55' | append: phone_digits -%}{%- endif -%}
+          <li>Celular: <a href="tel:+{{ phone_digits }}">{{ phone }}</a></li>
+        {%- endif -%}
+        {%- if email != blank -%}
+          <li>Email: <a href="mailto:{{ email }}">{{ email }}</a></li>
+        {%- endif -%}
+        {%- if instagram != blank -%}
+          <li><a href="https://www.instagram.com/{{ instagram }}/" target="_blank" rel="noopener">@{{ instagram }}</a></li>
+        {%- endif -%}
+      </ul>
+    {%- endif -%}
   </div>
 </section>
 
@@ -22,6 +40,10 @@
       "type": "richtext", "id": "text", "label": "Texto",
       "default": "<p>Ilustradora, aquarelista e psicóloga, 24 anos. Me encontrei com a aquarela em 2020 e desde então tenho feito do trabalho com ela um lugar dedicado à busca do lúdico e do brincar. Misturo em minhas ilustrações um pouco do infantil com o ser-adulto, porque acredito que tudo isso fica junto e misturado dentro da gente. Além disso, produzo trabalhos voltados para o universo feminino, explorando a sensibilidade das cenas cotidianas. Procuro sempre brincar com o colorido e o vibrante, deixando a criatividade fluir.</p>"
     },
+    { "type": "header", "content": "Contato" },
+    { "type": "text", "id": "phone", "label": "Celular", "default": "11 999075377" },
+    { "type": "text", "id": "email", "label": "Email", "default": "isadoramuylaert01@gmail.com" },
+    { "type": "text", "id": "instagram", "label": "Instagram", "info": "Só o nome de usuário, ex.: ilustra.doris", "default": "ilustra.doris" },
     { "type": "color", "id": "color_left", "label": "Fundo da foto", "default": "#ED96A7" },
     { "type": "color", "id": "color_right", "label": "Fundo do texto", "default": "#E07B8B" }
   ],
